@@ -3,7 +3,10 @@ const router = require('express').Router();
 const { Post } = require('../../db')
 
 router.get('/', async (req, res) => {
-  const posts = await Post.findAll();
+  const posts = await Post.findAll({
+    attributes: {exclude: ['content','createdAt', 'updatedAt']},
+    order:[['creationDate', 'DESC']]
+  });
   res.json(posts);
 });
 
