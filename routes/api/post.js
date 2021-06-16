@@ -10,6 +10,13 @@ router.get('/', async (req, res) => {
   res.json(posts);
 });
 
+router.get('/:postid', async (req, res) => {
+  const post = await Post.findAll({
+    where: {id: req.params.postid}
+  });
+  res.json(post);
+});
+
 router.post('/', async (req, res) => {
   const response = await Post.create(req.body);
   res.json(response);
