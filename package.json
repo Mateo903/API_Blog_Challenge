@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Mateo903/API_Blog_Challenge#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",
     "sequelize": "^6.6.2"
   }
