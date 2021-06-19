@@ -23,19 +23,28 @@ router.get('/:postid', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const response = await Post.create(req.body);
-  res.json(response);
+  const img = req.body.imgurl 
+  if(validateImage(img)){
+    const response = await Post.create(req.body);
+    res.json(response);
+  }
 });
 
 router.patch('/:postid', async (req, res) => {
-  const response = await Post.update(
-    req.body, {
-    where: {id: req.params.postid}
-  }).catch(()=> undefined);
-  if(!response[0] || !response){
-    console.log("ERROR: The post tha you want to patch doesn't exist")
+  const img = req.body.imgurl
+  if(validateImage(img)){
+    const response = await Post.update(
+      req.body, {
+      where: {id: req.params.postid}
+    }).catch(()=> undefined);
+
+    if(!response[0] || !response){
+      console.log("ERROR: The post tha you want to patch doesn't exist")
+    }else{
+      res.json(response);
+    }
   }else{
-    res.json(response);
+    console.log()
   }
 });
 
@@ -49,5 +58,14 @@ router.delete('/:postid', async (req, res) => {
     res.json(response);
   }
 });
+
+function validateImage(img) {
+  if (!/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)/.test(img) && (img !== undefined )){
+    console.log("ERROR: The imagen is invalid, imagen format supported: .jpg, .png")
+    return false
+  }else{
+    return true
+  }
+}
 
 module.exports = router

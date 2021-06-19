@@ -7,7 +7,7 @@ module.exports = (sequelize, type) => {
     },
     title: type.STRING,
     content: type.STRING,
-    imgURL: type.STRING,
+    imgurl: type.STRING,
     category: type.STRING,
     creationDate: type.DATE,
   })
